@@ -1,74 +1,109 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>المرشد الذكي للنباتات</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المرشد الذكي للنباتات</title>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="header">
-    <img src="{{ url_for('static', filename='images/moe-logo.png') }}" class="logo">
+  <img src="{{ url_for('static', filename='images/moe-logo.png') }}" class="logo" alt="وزارة التعليم">
 
-    <div class="title">
-        <h1>الإدارة العامة للتعليم بمحافظة الطائف</h1>
-        <p>قسم الأمن والسلامة والمرافق</p>
-    </div>
+  <div class="title">
+    <h1>الإدارة العامة للتعليم بمحافظة الطائف</h1>
+    <p>قسم الأمن والسلامة والمرافق</p>
+  </div>
 </header>
 
-<!-- ===== CHAT BOX ===== -->
-<div class="chat-container">
+<main class="main-layout">
 
-    <div id="messages" class="messages"></div>
+  <section class="info-card">
+    <h3>عن الخدمة</h3>
+    <p>
+      مرشد ذكي يساعدك في التعرف على النباتات والأشجار وطرق العناية بها
+      من خلال السؤال النصي أو إرفاق صورة للنبات.
+    </p>
 
-    <div class="input-area">
-        <input type="text" id="input" placeholder="اكتب سؤالك عن النبات...">
-        <input type="file" id="imageInput" accept="image/*">
-        <button onclick="send()">إرسال</button>
+    <div class="visitor-box">
+      <span>عدد الزوار</span>
+      <strong>{{ visitors_count }}</strong>
+    </div>
+  </section>
+
+  <section class="chat-container">
+
+    <div class="chat-title">
+      <div class="plant-icon">🌱</div>
+      <h2>المرشد الذكي للنباتات</h2>
+      <p>اكتب سؤالك أو أرفق صورة للحصول على إجابة دقيقة</p>
     </div>
 
-</div>
+    <div id="messages" class="messages">
+      <div class="msg bot">
+        مرحبًا بك 🌿<br>
+        اكتب اسم النبات أو المشكلة، أو أرفق صورة للنبات لتحليلها.
+      </div>
+    </div>
 
-<!-- ===== FOOTER ===== -->
+    <form id="chatForm" class="input-area">
+
+      <button type="submit" class="send-btn" title="إرسال">
+        ➤
+      </button>
+
+      <input 
+        type="text" 
+        id="input" 
+        placeholder="اكتب سؤالك عن النبات..."
+      >
+
+      <label class="icon-btn" title="تصوير النبات">
+        📷
+        <input 
+          type="file" 
+          id="cameraInput" 
+          accept="image/*" 
+          capture="environment" 
+          hidden
+        >
+      </label>
+
+      <label class="icon-btn" title="إرفاق صورة">
+        📎
+        <input 
+          type="file" 
+          id="imageInput" 
+          accept="image/*" 
+          hidden
+        >
+      </label>
+
+    </form>
+
+    <div id="selectedFile" class="selected-file"></div>
+
+  </section>
+
+  <section class="tips-card">
+    <h3>إرشادات سريعة</h3>
+    <ul>
+      <li>اكتب اسم النبات بوضوح.</li>
+      <li>ارفع صورة واضحة بإضاءة جيدة.</li>
+      <li>اذكر المشكلة مثل: اصفرار، ذبول، بقع.</li>
+    </ul>
+  </section>
+
+</main>
+
 <footer>
-    جميع الحقوق محفوظة © قسم الأمن والسلامة والمرافق 2026
+  جميع الحقوق محفوظة لقسم الأمن والسلامة والمرافق 2026
 </footer>
 
-<!-- ===== SCRIPT ===== -->
-<script>
-async function send() {
-
-    let input = document.getElementById("input").value;
-    let file = document.getElementById("imageInput").files[0];
-    let messages = document.getElementById("messages");
-
-    if (!input && !file) return;
-
-    // عرض رسالة المستخدم
-    messages.innerHTML += `<div class="msg user">${input || "📷 صورة مرفقة"}</div>`;
-
-    let formData = new FormData();
-    formData.append("message", input);
-    if (file) formData.append("image", file);
-
-    let res = await fetch("/chat", {
-        method: "POST",
-        body: formData
-    });
-
-    let data = await res.json();
-
-    messages.innerHTML += `<div class="msg bot">${data.reply}</div>`;
-
-    document.getElementById("input").value = "";
-    document.getElementById("imageInput").value = "";
-}
-</script>
-
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
