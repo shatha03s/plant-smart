@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المرشد الذكي للنباتات</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="gov-header">
+    <div class="brand"><img src="{{ url_for('static', filename='images/moe-logo.png') }}" alt="وزارة التعليم" class="moe-logo"></div>
+    <div class="title-block">
+      <h1>الإدارة العامة للتعليم بمحافظة الطائف</h1>
+      <p>قسم الأمن والسلامة والمرافق</p>
+    </div>
+  </header>
+  <main class="page-wrap">
+    <aside class="side-card intro-card">
+      <div class="label">عن الخدمة</div>
+      <p>مرشد ذكي يساعدك في التعرف على النباتات والأشجار وطرق العناية بها من خلال السؤال النصي أو الصورة.</p>
+      <div class="mini-stat"><span>عدد الزوار</span><strong>{{ visitors_count }}</strong></div>
+    </aside>
+    <section class="chat-card">
+      <div class="chat-title"><div class="leaf-icon">🌱</div><h2>المرشد الذكي للنباتات</h2><p>اسأل عن أي نبات أو أرفق صورة للحصول على إجابة دقيقة</p></div>
+      <div id="chatMessages" class="chat-messages">
+        <div class="message bot"><div class="avatar">🤖</div><div class="bubble">مرحبًا بك. اكتب اسم النبات أو المشكلة، أو أرفق صورة للنبات لتحليلها.<span class="time">الآن</span></div></div>
+      </div>
+      <form id="chatForm" class="input-bar">
+        <button type="submit" class="send-btn" title="إرسال">➤</button>
+        <input id="messageInput" type="text" placeholder="اكتب سؤالك هنا... مثال: كيف أعتني بالصبار؟">
+        <label class="media-btn" title="تصوير النبات">📷<input id="cameraInput" type="file" accept="image/*" capture="environment" hidden></label>
+        <label class="media-btn" title="إرفاق صورة">📎<input id="uploadInput" type="file" accept="image/*" hidden></label>
+      </form>
+      <div id="selectedFile" class="selected-file"></div>
+    </section>
+    <aside class="side-card tips-card">
+      <div class="label">إرشادات سريعة</div>
+      <ul><li>اكتب اسم النبات بوضوح.</li><li>صوّر النبات بإضاءة جيدة.</li><li>اذكر المشكلة: اصفرار، ذبول، بقع.</li></ul>
+    </aside>
+  </main>
+  <footer>جميع الحقوق محفوظة لقسم الأمن والسلامة والمرافق 2026</footer>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
