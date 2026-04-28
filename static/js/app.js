@@ -1,1 +1,82 @@
-const form=document.getElementById("chatForm");const input=document.getElementById("messageInput");const chat=document.getElementById("chatMessages");const camera=document.getElementById("cameraInput");const upload=document.getElementById("uploadInput");const selected=document.getElementById("selectedFile");let selectedImage=null;function now(){return new Date().toLocaleTimeString("ar-SA",{hour:"2-digit",minute:"2-digit"});}function addMessage(text,type="bot"){const row=document.createElement("div");row.className=`message ${type}`;const avatar=document.createElement("div");avatar.className="avatar";avatar.innerText=type==="user"?"👤":"🤖";const bubble=document.createElement("div");bubble.className="bubble";bubble.innerText=text;const t=document.createElement("span");t.className="time";t.innerText=now();bubble.appendChild(t);row.appendChild(avatar);row.appendChild(bubble);chat.appendChild(row);chat.scrollTop=chat.scrollHeight;}function handleFile(file){if(!file)return;selectedImage=file;selected.innerText="تم اختيار الصورة: "+file.name;}camera.addEventListener("change",e=>handleFile(e.target.files[0]));upload.addEventListener("change",e=>handleFile(e.target.files[0]));form.addEventListener("submit",async(e)=>{e.preventDefault();const message=input.value.trim();if(!message&&!selectedImage)return;if(message)addMessage(message,"user");else addMessage("تحليل صورة النبات","user");input.value="";selected.innerText="";try{let res;if(selectedImage){const fd=new FormData();fd.append("message",message||"حلل صورة النبات");fd.append("image",selectedImage);res=await fetch("/api/analyze-image",{method:"POST",body:fd});selectedImage=null;camera.value="";upload.value="";}else{res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message})});}const data=await res.json();addMessage(data.reply||"لم أتمكن من معالجة الطلب.","bot");}catch(err){addMessage("حدث خطأ مؤقت. أعد المحاولة.","bot");}});
+const form = document.getElementById("chatForm");
+const input = document.getElementById("input");
+const messages = document.getElementById("messages");
+const cameraInput = document.getElementById("cameraInput");
+const imageInput = document.getElementById("imageInput");
+const selectedFile = document.getElementById("selectedFile");
+
+let selectedImage = null;
+
+function addMessage(text, type = "bot") {
+  const div = document.createElement("div");
+  div.className = `msg ${type}`;
+  div.innerText = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function handleFile(file) {
+  if (!file) return;
+
+  selectedImage = file;
+  selectedFile.innerText = "تم اختيار الصورة: " + file.name;
+}
+
+cameraInput.addEventListener("change", (e) => {
+  handleFile(e.target.files[0]);
+});
+
+imageInput.addEventListener("change", (e) => {
+  handleFile(e.target.files[0]);
+});
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const message = input.value.trim();
+
+  if (!message && !selectedImage) return;
+
+  if (message) {
+    addMessage(message, "user");
+  } else {
+    addMessage("تحليل صورة النبات", "user");
+  }
+
+  input.value = "";
+  selectedFile.innerText = "";
+
+  try {
+    let response;
+
+    if (selectedImage) {
+      const formData = new FormData();
+      formData.append("message", message || "حلل صورة النبات");
+      formData.append("image", selectedImage);
+
+      response = await fetch("/api/analyze-image", {
+        method: "POST",
+        body: formData
+      });
+
+      selectedImage = null;
+      cameraInput.value = "";
+      imageInput.value = "";
+
+    } else {
+      response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message })
+      });
+    }
+
+    const data = await response.json();
+    addMessage(data.reply || "لم أتمكن من معالجة الطلب.", "bot");
+
+  } catch (error) {
+    addMessage("حدث خطأ مؤقت. أعد المحاولة.", "bot");
+  }
+});
