@@ -1,1 +1,105 @@
-*{box-sizing:border-box}:root{--green:#006b52;--dark:#004d3b;--mid:#0b8a68;--text:#183d34;--muted:#667a73;--border:rgba(0,107,82,.18)}body{margin:0;direction:rtl;font-family:Tahoma,Arial,sans-serif;color:var(--text);min-height:100vh;background:linear-gradient(rgba(255,255,255,.68),rgba(235,248,241,.88)),url("../images/botanical-frame.jpg") center/cover fixed no-repeat}.gov-header{height:150px;background:linear-gradient(135deg,#004d3b,#0b6f55,#2d7f56);display:grid;grid-template-columns:260px 1fr 260px;align-items:center;padding:20px 70px;color:#fff;box-shadow:0 8px 25px rgba(0,0,0,.16);border-bottom:5px solid rgba(186,218,143,.8)}.brand{justify-self:start}.moe-logo{width:190px;max-height:110px;object-fit:contain;filter:drop-shadow(0 8px 12px rgba(0,0,0,.2))}.title-block{text-align:center}.title-block h1{margin:0;font-size:35px;font-weight:900}.title-block p{margin:12px 0 0;font-size:24px;font-weight:700}.page-wrap{display:grid;grid-template-columns:260px minmax(520px,1fr) 300px;gap:28px;padding:42px 70px 26px;align-items:stretch}.side-card,.chat-card{background:rgba(255,255,255,.88);border:1px solid var(--border);border-radius:28px;box-shadow:0 20px 50px rgba(0,77,59,.10);backdrop-filter:blur(10px)}.side-card{padding:24px;min-height:520px}.label{display:inline-block;background:linear-gradient(135deg,#0b8a68,#004d3b);color:white;padding:12px 28px;border-radius:0 0 18px 18px;font-weight:900;margin-bottom:22px}.side-card p{line-height:2;color:#2e4f45;font-size:16px}.mini-stat{margin-top:30px;border:1px solid var(--border);border-radius:22px;padding:20px;text-align:center;background:rgba(234,246,239,.8)}.mini-stat span{display:block;color:var(--muted);font-weight:700}.mini-stat strong{display:block;color:var(--green);font-size:38px;margin-top:8px}.tips-card ul{list-style:none;padding:0;margin:20px 0 0}.tips-card li{padding:15px 0;border-bottom:1px solid rgba(0,107,82,.12);font-size:16px}.tips-card li:before{content:"✓";color:var(--green);font-weight:900;margin-left:10px}.chat-card{padding:28px 30px;display:flex;flex-direction:column;min-height:680px}.chat-title{text-align:center;margin-bottom:18px}.leaf-icon{font-size:38px}.chat-title h2{margin:4px 0;color:var(--green);font-size:34px;font-weight:900}.chat-title p{margin:0;color:#233f37;font-size:17px}.chat-messages{flex:1;overflow-y:auto;padding:24px;border-radius:26px;border:1px solid rgba(0,107,82,.13);background:rgba(255,255,255,.62);box-shadow:inset 0 0 40px rgba(0,107,82,.05);min-height:420px}.message{display:flex;gap:14px;margin:18px 0;align-items:flex-start}.message.user{justify-content:flex-start;flex-direction:row-reverse}.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#0b8a68,#004d3b);color:white;box-shadow:0 8px 18px rgba(0,77,59,.2)}.bubble{max-width:72%;background:#fff;border:1px solid rgba(0,107,82,.13);border-radius:22px;padding:18px 22px;line-height:2;white-space:pre-line;box-shadow:0 12px 30px rgba(0,77,59,.07)}.message.user .bubble{background:#e3f1db;color:#173d34}.time{display:block;color:#8a9a94;font-size:12px;margin-top:6px}.input-bar{display:grid;grid-template-columns:70px 1fr 62px 62px;gap:12px;margin-top:18px;background:rgba(255,255,255,.95);border:1px solid var(--border);border-radius:25px;padding:10px;box-shadow:0 14px 32px rgba(0,77,59,.10)}#messageInput{height:58px;border:0;outline:0;background:transparent;font-size:16px;padding:0 18px;color:var(--text)}.send-btn,.media-btn{height:58px;border-radius:20px;display:grid;place-items:center;cursor:pointer;font-size:23px;transition:.2s}.send-btn{border:0;background:linear-gradient(135deg,#0b8a68,#004d3b);color:#fff}.media-btn{border:1px solid var(--border);background:#fff;color:var(--green)}.send-btn:hover,.media-btn:hover{transform:translateY(-2px)}.selected-file{text-align:center;color:var(--green);font-weight:700;margin-top:10px;min-height:20px}footer{background:linear-gradient(135deg,#004d3b,#0b6f55);color:#fff;text-align:center;padding:20px;font-size:17px;font-weight:700;margin-top:10px}@media(max-width:1100px){.gov-header{grid-template-columns:1fr;padding:20px;height:auto}.brand{justify-self:center}.title-block h1{font-size:26px}.title-block p{font-size:18px}.page-wrap{grid-template-columns:1fr;padding:20px}.side-card{min-height:auto}.chat-card{min-height:620px}.input-bar{grid-template-columns:58px 1fr 54px 54px}}
+/* ===== GENERAL ===== */
+body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+
+    background: linear-gradient(rgba(0, 80, 50, 0.85), rgba(0, 80, 50, 0.85)),
+    url("../images/botanical-frame.jpg");
+
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+/* ===== HEADER ===== */
+.header {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.logo {
+    width: 140px;
+    margin-bottom: 10px;
+}
+
+/* لو الخلفية غامقة خليه أبيض */
+.logo {
+    filter: brightness(0) invert(1);
+}
+
+.title h1 {
+    font-size: 22px;
+    margin: 5px 0;
+}
+
+.title p {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* ===== CHAT BOX ===== */
+.chat-container {
+    max-width: 500px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+/* الرسائل */
+.messages {
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.msg {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.user {
+    background: #2ecc71;
+    text-align: right;
+}
+
+.bot {
+    background: #34495e;
+    text-align: left;
+}
+
+/* ===== INPUT ===== */
+.input-area {
+    display: flex;
+    gap: 5px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+input[type="file"] {
+    color: white;
+}
+
+button {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+}
